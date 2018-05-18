@@ -13,7 +13,7 @@ node {
      sh 'docker build -t django_pruebas-test -f Dockerfile --no-cache .'
     }
     stage('Docker test'){
-      sh 'docker run --rm django_pruebas-test python3 pruebas/manage.py tests'
+      sh 'docker run --rm django_pruebas-test python3 pruebas/manage.py test'
     }
     stage('Clean Docker test'){
       sh 'docker rmi django_pruebas-test'
