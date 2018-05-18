@@ -13,7 +13,7 @@ node {
      sh 'docker build -t django_pruebas-test -f Dockerfile.test --no-cache .'
     }
     stage('Docker test'){
-      sh 'docker run --name django_pruebas_${env.BUILD_ID} django_pruebas-test;docker cp django_pruebas_${env.BUILD_ID}:/results .;docker rm django_pruebas_${env.BUILD_ID}'
+      sh "docker run --name django_pruebas_${env.BUILD_ID} django_pruebas-test;docker cp django_pruebas_${env.BUILD_ID}:/results .;docker rm django_pruebas_${env.BUILD_ID}"
 	  step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'results/coverage.xml', failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false])
       junit 'results/xmlrunner/**/*.xml'
     }
