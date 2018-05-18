@@ -17,8 +17,9 @@ RUN pip3 install --no-cache-dir -r requirements.txt -r test-requirements.txt
 
 VOLUME /logs
 VOLUME /data
+VOLUME /results
 EXPOSE 80
 
 WORKDIR /app/pruebas
 
-CMD [ "sh", "-c", "coverage run manage.py test; coverage xml --exclude=/usr" ]
+CMD [ "sh", "-c", "coverage run manage.py test; coverage xml --exclude=/usr;mv coverage.xml xmlrunner /results" ]
