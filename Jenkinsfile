@@ -10,7 +10,7 @@ node {
       sh 'printenv'
     }
     stage('Build Docker test'){
-     sh 'docker build -t django_pruebas-test -f Dockerfile --no-cache .'
+     sh 'docker build -t django_pruebas-test -f Dockerfile.test --no-cache .'
     }
     stage('Docker test'){
       sh 'docker run --rm django_pruebas-test python3 pruebas/manage.py test'
