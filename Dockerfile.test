@@ -22,4 +22,4 @@ EXPOSE 80
 
 WORKDIR /app/pruebas
 
-CMD [ "sh", "-c", "coverage run manage.py test; coverage xml --exclude=/usr;mv coverage.xml xmlrunner /results" ]
+CMD [ "sh", "-c", "coverage run manage.py test; coverage xml --omit=/usr;mv coverage.xml xmlrunner /results" ]

@@ -10,10 +10,12 @@ node {
       sh 'printenv'
     }
     stage('Build Docker test'){
-     sh 'docker build -t django_pruebas-test -f Dockerfile.test --no-cache -v result:/results .'
+     sh 'docker build -t django_pruebas-test -f Dockerfile.test --no-cache .'
     }
     stage('Docker test'){
-      sh 'docker run --rm django_pruebas-test python3 pruebas/manage.py test'
+      sh 'docker run --rm -v $(pwd)/result:/results django_pruebas-test'
+	  step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'result/coverage.xml', failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 0, onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false])
+      junit 'result/xmlrunner/**/*.xml'
     }
     stage('Clean Docker test'){
       sh 'docker rmi django_pruebas-test'
