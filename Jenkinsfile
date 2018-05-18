@@ -4,6 +4,7 @@ node {
       checkout scm
     }
     stage('Environment') {
+	// Mirar esto https://jenkins.io/doc/book/pipeline/docker/
       sh 'git --version'
       echo "Branch: ${env.BRANCH_NAME}"
       sh 'docker -v'
